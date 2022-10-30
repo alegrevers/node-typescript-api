@@ -1,20 +1,6 @@
 import { InternalError } from '@src/util/errors/internal-error';
 import { ForecastPoint, StormGlass } from "@src/clients/stormGlass";
-
-export enum BeachPosition {
-  S = 'S',
-  E = 'E',
-  W = 'W',
-  N = 'N'
-}
-
-export interface Beach {
-  name: string;
-  position: string;
-  lat: number;
-  lng: number;
-  user: string;
-}
+import { Beach } from '@src/models/beach';
 
 export interface TimeForecast {
   time: string;
@@ -25,7 +11,7 @@ export interface BeachForecast extends Omit<Beach, 'user'>, ForecastPoint {}
 
 export class ForecastProcessingInternalError extends InternalError {
   constructor(message: string) {
-    super(`Unexpected error drugin the forecast processing: ${message}`)
+    super(`Unexpected error during the forecast processing: ${message}`)
   }
 }
 
