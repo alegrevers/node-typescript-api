@@ -1,6 +1,7 @@
 import { InternalError } from '@src/util/errors/internal-error';
 import { ForecastPoint, StormGlass } from "@src/clients/stormGlass";
 import { Beach } from '@src/models/beach';
+import logger from '@src/logger';
 
 export interface TimeForecast {
   time: string;
@@ -19,6 +20,7 @@ export class Forecast {
   constructor(protected stormGlass = new StormGlass()) {}
 
   public async processForecastForBeaches(beaches: Beach[]): Promise<TimeForecast[]> {
+    logger.info(`Preparing the forecast for ${beaches.length} beaches`);
     const pointsWithCorrectSources: BeachForecast[] = [];
 
     try {
@@ -30,6 +32,7 @@ export class Forecast {
 
       return this.mapForecastByTime(pointsWithCorrectSources);
     } catch (error: any) {
+      logger.error(error);
       throw new ForecastProcessingInternalError(error.message)
     }
   }
