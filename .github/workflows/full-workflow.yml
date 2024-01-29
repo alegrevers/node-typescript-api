@@ -3,22 +3,18 @@
 
 name: Complete workflow
 
-on: ['push']
-
-# on:
-#   push:
-#     branches:
-#       - main
-#       - master
-#   pull_request:
-#     branches:
-#       - main
-#       - master
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
 
 jobs:
-
-  build:
-
+  quality:
     runs-on: ubuntu-latest
 
     strategy:
@@ -56,14 +52,54 @@ jobs:
       - name: Run all tests
         run: yarn test
 
-      # - name: Install Vercel CLI
-      #   run: npm install --global vercel@latest
+  deploy:
+    needs: quality
+    runs-on: ubuntu-latest
 
-      # - name: Pull Vercel Environment Information
-      #   run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+    strategy:
+      matrix:
+        node-version: [16.x]
+        mongodb-version: [4.2]
 
-      # - name: Build Project Artifacts
-      #   run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+    services:
+      mongodb:
+        image: mongo:5.0
+        ports:
+          - 27017
+        options: >-
+          --health-cmd mongo
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-      # - name: Deploy Project Artifacts to Vercel
-      #   run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.1.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Run all tests
+        run: yarn test
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
