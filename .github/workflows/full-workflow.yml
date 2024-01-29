@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
         mongodb-version: [4.2]
 
     services:
@@ -54,6 +54,7 @@ jobs:
 
   deploy:
     needs: quality
+    if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
 
     strategy:
