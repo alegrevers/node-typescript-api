@@ -21,10 +21,10 @@ export class UsersController extends BaseController {
   @Post('authenticate')
   public async authenticate(req: Request, res: Response): Promise<Response | undefined> {
     const { email, password } = req.body
-    
+
     // try {
       const user = await User.findOne({ email })
-  
+
       if(!user) {
         return res.status(401).send({
           code: 401,
@@ -41,7 +41,7 @@ export class UsersController extends BaseController {
 
       const token = AuthService.generateToken(user.toJSON())
 
-      return res.status(200).send({ token: token });
+      return res.send({ ...user.toJSON(), ...{ token } });
     // } catch (error: any) {
     //   console.error(error)
     // }
