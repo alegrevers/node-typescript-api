@@ -67,3 +67,7 @@ dist/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# Lock files
+package-lock.json
+yarn.lock
