@@ -5,6 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Lock files
+*.lock
+
 # Runtime data
 pids
 *.pid
@@ -67,7 +70,3 @@ dist/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
-
-# Lock files
-package-lock.json
-yarn.lock
