@@ -6,6 +6,7 @@ import { ForecastController } from './controllers/forecast';
 import * as database from '@src/database';
 import { BeachesController } from './controllers/beaches';
 import { UsersController } from './controllers/users';
+import cors from 'cors'
 import logger from './logger';
 
 export class SetupServer extends Server {
@@ -15,15 +16,16 @@ export class SetupServer extends Server {
 
   public async init(): Promise<void> {
     this.setupExpress();
-    this.setupController();
+    this.setupControllers();
     await this.databaseSetup();
   }
 
   private setupExpress(): void {
     this.app.use(bodyParser.json());
+    this.app.use(cors({ origin: '*' }))
   }
 
-  private setupController(): void {
+  private setupControllers(): void {
     const forecastController = new ForecastController();
     const beachesController = new BeachesController();
     const usersControler = new UsersController();
