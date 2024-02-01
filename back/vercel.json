@@ -5,12 +5,12 @@
   },
   "builds": [
     {
-        "src": "dist/src/index.js",
+        "src": "dist/src/server.js",
         "use": "@vercel/node",
         "config": { "includeFiles": ["dist/**"] }
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "dist/src/index.js"}
+    { "src": "/(.*)", "dest": "dist/src/server.js"}
   ]
 }
