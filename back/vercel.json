@@ -5,9 +5,8 @@
   },
   "builds": [
     {
-        "src": "/src/index.ts",
-        "use": "@vercel/node",
-        "config": { "includeFiles": ["dist/**"] }
+        "src": "./dist/src/index.ts",
+        "use": "@vercel/node"
     }
   ],
   "routes": [
