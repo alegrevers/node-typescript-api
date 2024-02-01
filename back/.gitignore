@@ -64,7 +64,7 @@ typings/
 .next
 
 # typescript compiled code
-dist/
+# dist/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
