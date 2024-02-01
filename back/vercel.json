@@ -5,16 +5,12 @@
   },
   "builds": [
     {
-      "src": "/web/*",
-      "use": "@vercel/create-react-app"
-    },
-    {
         "src": "/src/index.ts",
         "use": "@vercel/node",
         "config": { "includeFiles": ["dist/**"] }
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/web/*", "methods": ["GET", "POST"] }
+    { "src": "/(.*)", "dest": "/"}
   ]
 }
