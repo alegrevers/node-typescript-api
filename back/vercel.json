@@ -5,14 +5,14 @@
   },
   "builds": [
     {
-        "src": "src/server.ts",
+        "src": "dist/src/server.js",
         "use": "@vercel/node"
     }
   ],
   "routes": [
-    { "src": "/beaches", "dest": "src/controllers/beaches.ts"},
-    { "src": "/forecast", "dest": "src/controllers/forecast.ts"},
-    { "src": "/users", "dest": "src/controllers/users.ts"},
-    { "src": "/docs", "dest": "src/server.ts"}
+    { "src": "/beaches", "dest": "dist/src/controllers/beaches.js"},
+    { "src": "/forecast", "dest": "dist/src/controllers/forecast.js"},
+    { "src": "/users", "dest": "dist/src/controllers/users.js"},
+    { "src": "/docs", "dest": "dist/src/server.js"}
   ]
 }
