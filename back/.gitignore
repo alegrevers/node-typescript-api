@@ -59,6 +59,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.test
 
 # next.js build output
 .next
@@ -70,3 +71,6 @@ typings/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# json
+.json
